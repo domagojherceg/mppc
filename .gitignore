@@ -1,0 +1,48 @@
+# Julia
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+deps/deps.jl
+docs/build/
+docs/site/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary and backup files
+*~
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Output files
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Julia package manager files
+Manifest.toml
+
+# Log files
+*.log
+*.out
+*.err
+
+# HPC job files
+slurm-*.out
+slurm-*.err
+*.o[0-9]*
+*.e[0-9]*
