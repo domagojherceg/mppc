@@ -1,33 +1,32 @@
-# ModularMPC
+# MPPC
 
-A modular Julia package for Model Predictive Control (MPC) with epidemiological models, specifically the SIDTHE (Susceptible, Infected, Diagnosed, Treated, Healed, Extinct) model.
+A Julia package for Model Predictive Control (MPC) with epidemiological models, specifically the SIDTHE (Susceptible, Infected, Diagnosed, Treated, Healed, Extinct) model.
 
 ## Features
 
 - Stochastic Model Predictive Control (SMPC) for epidemic control
 - Single and multiple control trajectory approaches
-- Risk-constrained formulations
-- Scenario generation capabilities
 - Visualization and simulation utilities
 
 ## Directory Structure
 
 ```
-modular_mpc/
+MPPC/
 ├── examples/
 │   ├── basic_example.jl
 │   └── compare_control_strategies.jl
 ├── src/
 │   ├── controllers/
-│   │   ├── mpc_single.jl
-│   │   └── mpc_multi.jl
+│   │   ├── mpc_basic.jl
+│   │   ├── mpc_recourse.jl
+│   │   └── mpc_robust.jl
 │   ├── models/
 │   │   └── sidthe_model.jl
 │   ├── utils/
 │   │   ├── cost_functions.jl
 │   │   ├── scenario_generation.jl
 │   │   └── simulation.jl
-│   └── ModularMPC.jl
+│   └── MPPC.jl
 ├── test/
 └── Project.toml
 ```
@@ -51,7 +50,7 @@ This is currently a local Julia package. To use it:
 Basic example:
 
 ```julia
-using ModularMPC
+using MPPC
 
 # Generate scenarios
 paramVal, probVal = get_default_parameters()
@@ -59,10 +58,12 @@ all_combinations, all_probabilities = genScenWithProbs(paramVal, probVal)
 all_scenarios = eachrow(all_combinations)
 
 # Create MPC controller
-mpc = buildSMPC_RK4_vanilla(
+mpc = buildSMPC_RK4_robust(
     squared_cost,
     all_scenarios,
+    paramVal,
     numWeeks = 4,
+    T_max = 0.002,
     Ts = 2,
     xf = true
 )
